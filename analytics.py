@@ -38,23 +38,27 @@ def generate_insights(df):
     col3.metric("Highest spending category",f"{top_category} (₹{top_amount})")
 
 def plot_category_spending(df):
+    st.subheader("Category Wise Spending")
     category_totals=df.groupby("category")["amount"].sum()
+    fig,ax=plt.subplots()
     category_totals.plot(kind="pie",autopct="%1.1f%%")
-    plt.title("Spending By Category")
-    plt.ylabel("")
-    plt.show()
+    ax.set_ylabel("")
+    st.pyplot(fig)
 
 def plot_monthly_spending(df):
+    st.subheader("Monthly Spending Trend")
     df["date"]=pd.to_datetime(df["date"])
     df["month"]=df["date"].dt.to_period("M")
 
     monthly=df.groupby("month")["amount"].sum()
 
-    monthly.plot(kind="line",marker="o")
-    plt.title("Monthly Spending Trend")
-    plt.xlabel("Month")
-    plt.ylabel("Amount Sent")
-    plt.show()
+    fig, ax = plt.subplots()
+    monthly.plot(kind="line", marker="o", ax=ax)
+
+    ax.set_xlabel("Month")
+    ax.set_ylabel("Amount")
+
+    st.pyplot(fig)
 
 if __name__ == "__main__":
     df = load_expenses()

@@ -2,7 +2,7 @@ import pandas as pd
 import streamlit as st
 from database import add_expense
 from database import create_tables
-from analytics import load_expenses,generate_insights
+from analytics import load_expenses,generate_insights,plot_category_spending,plot_monthly_spending
 from ml_model import predict_category
 try:
     df = load_expenses()
@@ -88,8 +88,13 @@ if total_spent > budget:
 
 if not df.empty:
     generate_insights(df)
+    plot_category_spending(df)
+    plot_monthly_spending(df)
 else:
     st.write("No expenses yet.")
+
+    
+
 
 st.header("All Expenses")
 df=load_expenses()

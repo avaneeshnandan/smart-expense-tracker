@@ -1,8 +1,10 @@
 import pandas as pd
 import streamlit as st
 from database import add_expense
+from database import create_tables
 from analytics import load_expenses,generate_insights
 from ml_model import predict_category
+create_tables()
 st.title("Smart Expense Tracker")
 st.write("Welcome to your Expense Analytics Dashboard")
 

@@ -4,7 +4,11 @@ from database import add_expense
 from database import create_tables
 from analytics import load_expenses,generate_insights
 from ml_model import predict_category
-create_tables()
+try:
+    df = load_expenses()
+except:
+    create_tables()
+    df = load_expenses()
 st.title("Smart Expense Tracker")
 st.write("Welcome to your Expense Analytics Dashboard")
 
